@@ -1,32 +1,36 @@
-import React, { useState } from 'react';
-import { Space, Button } from 'antd';
+import { useSelector, useDispatch } from 'react-redux';
+import { Row, Button } from 'antd';
 import { SmileOutlined, UnorderedListOutlined, FrownOutlined } from '@ant-design/icons';
 
+import { setFilter } from '../redux/actions'
 const TodoFilters = () => {
-  const [size, setSize] = useState('large');
+  const currentFilter = useSelector(state => state.showFilter)
+  const dispatch = useDispatch()
   return (
-    <>
-      <Space size={size} style={{ margin: "30px" }}>
-        <Button
-          icon={<UnorderedListOutlined />}
-          type="primary"
-          size="large"
-          ghost
-        >All</Button>
-        <Button
-          icon={<SmileOutlined />}
-          type="primary"
-          size="large"
-          ghost
-        >已完成</Button>
-        <Button
-          icon={<FrownOutlined />}
-          type="danger"
-          size="large"
-          ghost
-        >未完成</Button>
-      </Space>
-    </>
+    <Row style={{ margin: "30px" }} justify="space-around">
+      <Button
+        icon={<UnorderedListOutlined />}
+        type="primary"
+        size="large"
+        ghost={currentFilter !== 'all'}
+        onClick={() => dispatch(setFilter('all'))}
+      >All</Button>
+      <Button
+        icon={<SmileOutlined />}
+        type="primary"
+        size="large"
+        ghost={currentFilter !== '已完成'}
+        onClick={() => dispatch(setFilter('已完成'))}
+
+      >已完成</Button>
+      <Button
+        icon={<FrownOutlined />}
+        type="danger"
+        size="large"
+        ghost={currentFilter !== '未完成'}
+        onClick={() => dispatch(setFilter('未完成'))}
+      >未完成</Button>
+    </Row>
   )
 }
 
