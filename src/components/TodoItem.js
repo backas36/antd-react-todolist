@@ -18,7 +18,7 @@ const TodoItem = ({ todoId }) => {
       actions={[
         <Tooltip title="completed">
           <Button
-            type="ghost"
+            type={todo.completed ? "primary" : "ghost"}
             shape="circle"
             icon={<CheckOutlined />}
             size="middle"
